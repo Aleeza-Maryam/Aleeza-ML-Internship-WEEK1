@@ -299,7 +299,7 @@
     <!-- ============================================================ -->
     <!-- TITLE & AUTHOR -->
     <!-- ============================================================ -->
-    <h1>🔍 Content Refresh Opportunity Scoring</h1>
+    <h1> Content Refresh Opportunity Scoring</h1>
     <p class="subtitle">Using Machine Learning to Prioritize Content Refresh Decisions</p>
     
     <div class="author-line">
@@ -312,7 +312,7 @@
     <!-- 0. ABSTRACT -->
     <!-- ============================================================ -->
     <div class="abstract-box">
-        <h3>📄 Abstract</h3>
+        <h3> Abstract</h3>
         <p><strong>Question:</strong> Can observable search and content signals be used to rank pages that are potential content-refresh opportunities better than a simple hand-written rule?</p>
         <p><strong>Data:</strong> March 2026 search and analytics data from the FlyRank Internship Warehouse, comprising 10,000 content pages with daily performance metrics and content metadata.</p>
         <p><strong>Method:</strong> Trained a Random Forest classifier to predict which pages would experience a ≥30% decline in impressions from March to April 2026.</p>
@@ -380,10 +380,10 @@
     
     <h3>Leakage Checks</h3>
     <ul>
-        <li>✅ April data used ONLY for label, never as features</li>
-        <li>✅ Future update dates removed from feature set</li>
-        <li>✅ Client IDs used only for grouping, never as features</li>
-        <li>✅ Trend-based labels created from future data, never used as features</li>
+        <li> April data used ONLY for label, never as features</li>
+        <li> Future update dates removed from feature set</li>
+        <li> Client IDs used only for grouping, never as features</li>
+        <li> Trend-based labels created from future data, never used as features</li>
     </ul>
 
     <!-- ============================================================ -->
@@ -524,10 +524,10 @@
     
     <h3>Features Left Out (on purpose)</h3>
     <ul>
-        <li>❌ Any April data (would cause leakage)</li>
-        <li>❌ Content updated date (future leakage)</li>
-        <li>❌ Client identifiers (would cause overfitting)</li>
-        <li>❌ Content type / provider (not reliable)</li>
+        <li> Any April data (would cause leakage)</li>
+        <li> Content updated date (future leakage)</li>
+        <li> Client identifiers (would cause overfitting)</li>
+        <li> Content type / provider (not reliable)</li>
     </ul>
     
     <h3>Target Definition</h3>
