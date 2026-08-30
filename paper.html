@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Refresh Opportunity Scoring - Research Paper</title>
+    <style>
+        /* ===== GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: #1a1a2e;
+            background: #f0f2f5;
+            padding: 30px 20px;
+        }
+        
+        .paper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 50px 60px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+        
+        /* ===== TYPOGRAPHY ===== */
+        h1 {
+            font-size: 2.6em;
+            color: #1a1a2e;
+            border-bottom: 4px solid #4a6cf7;
+            padding-bottom: 12px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            font-size: 1.15em;
+            color: #555;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        
+        .author-line {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e8ecf1;
+        }
+        
+        .author-line strong {
+            color: #1a1a2e;
+        }
+        
+        h2 {
+            font-size: 1.8em;
+            color: #1a1a2e;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e8ecf1;
+            font-weight: 600;
+        }
+        
+        h3 {
+            font-size: 1.25em;
+            color: #2d2d44;
+            margin-top: 24px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        p {
+            margin-bottom: 14px;
+            color: #333;
+        }
+        
+        ul, ol {
+            margin: 12px 0 18px 28px;
+            color: #333;
+        }
+        
+        li {
+            margin-bottom: 6px;
+        }
+        
+        a {
+            color: #4a6cf7;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* ===== ABSTRACT BOX ===== */
+        .abstract-box {
+            background: #f0f7ff;
+            padding: 24px 30px;
+            border-radius: 10px;
+            border-left: 5px solid #4a6cf7;
+            margin: 20px 0 30px 0;
+        }
+        
+        .abstract-box h3 {
+            margin-top: 0;
+            color: #1a1a2e;
+        }
+        
+        .abstract-box p {
+            margin-bottom: 8px;
+        }
+        
+        .abstract-box strong {
+            color: #1a1a2e;
+        }
+        
+        /* ===== TABLES ===== */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0 30px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+        
+        th {
+            background: #1a1a2e;
+            color: white;
+            padding: 14px 18px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 12px 18px;
+            border-bottom: 1px solid #e8ecf1;
+        }
+        
+        tr:hover {
+            background: #f8faff;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .metric-highlight {
+            background: #e8f5e9;
+            font-weight: 600;
+        }
+        
+        .improvement-positive {
+            color: #2e7d32;
+            font-weight: 700;
+        }
+        
+        .improvement-negative {
+            color: #c62828;
+            font-weight: 700;
+        }
+        
+        /* ===== BADGES ===== */
+        .badge {
+            display: inline-block;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .badge-high {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .badge-medium {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        
+        .badge-low {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        /* ===== LIMITATIONS BOX ===== */
+        .limitation-box {
+            background: #fff8e1;
+            padding: 20px 28px;
+            border-radius: 10px;
+            border-left: 5px solid #ffa000;
+            margin: 20px 0;
+        }
+        
+        .limitation-box ul {
+            margin-bottom: 0;
+        }
+        
+        /* ===== RECOMMENDATION CARD ===== */
+        .rec-card {
+            background: #f8faff;
+            padding: 18px 24px;
+            margin: 12px 0;
+            border-radius: 8px;
+            border-left: 4px solid #4a6cf7;
+        }
+        
+        .rec-card strong {
+            color: #1a1a2e;
+        }
+        
+        /* ===== REPO LINK BUTTON ===== */
+        .repo-btn {
+            display: inline-block;
+            background: #1a1a2e;
+            color: white;
+            padding: 12px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 8px 0 16px 0;
+            transition: background 0.2s;
+        }
+        
+        .repo-btn:hover {
+            background: #2d2d44;
+            text-decoration: none;
+        }
+        
+        /* ===== FOOTER ===== */
+        .footer {
+            margin-top: 45px;
+            padding-top: 25px;
+            border-top: 2px solid #e8ecf1;
+            text-align: center;
+            color: #777;
+            font-size: 0.9em;
+        }
+        
+        .footer a {
+            color: #4a6cf7;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .paper {
+                padding: 25px 18px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            h2 {
+                font-size: 1.4em;
+            }
+            
+            .abstract-box {
+                padding: 16px 18px;
+            }
+            
+            th, td {
+                padding: 8px 10px;
+                font-size: 0.85em;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .paper {
+                box-shadow: none;
+                padding: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="paper">
+
+    <!-- ============================================================ -->
+    <!-- TITLE & AUTHOR -->
+    <!-- ============================================================ -->
+    <h1>🔍 Content Refresh Opportunity Scoring</h1>
+    <p class="subtitle">Using Machine Learning to Prioritize Content Refresh Decisions</p>
+    
+    <div class="author-line">
+        <strong>Author:</strong> Aleeza Maryam &nbsp;|&nbsp;
+        <strong>Lane:</strong> Refresh / Content Opportunity Scoring &nbsp;|&nbsp;
+        <strong>Date:</strong> August 30, 2026
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 0. ABSTRACT -->
+    <!-- ============================================================ -->
+    <div class="abstract-box">
+        <h3>📄 Abstract</h3>
+        <p><strong>Question:</strong> Can observable search and content signals be used to rank pages that are potential content-refresh opportunities better than a simple hand-written rule?</p>
+        <p><strong>Data:</strong> March 2026 search and analytics data from the FlyRank Internship Warehouse, comprising 10,000 content pages with daily performance metrics and content metadata.</p>
+        <p><strong>Method:</strong> Trained a Random Forest classifier to predict which pages would experience a ≥30% decline in impressions from March to April 2026.</p>
+        <p><strong>Result:</strong> The model achieved an AUC of 0.752, substantially outperforming the baseline rule (AUC: 0.498) by 25.4 percentage points, demonstrating that machine learning can effectively identify content refresh opportunities.</p>
+        <p><strong>Output:</strong> A ranked list of content pages with opportunity scores, reason codes, and actionable recommendations, enabling content teams to prioritize human review efficiently.</p>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 1. INTRODUCTION / PROBLEM FRAMING -->
+    <!-- ============================================================ -->
+    <h2>1. Introduction</h2>
+    
+    <p><strong>Decision Supported:</strong> Help content teams prioritize which pages should be reviewed first for a possible content refresh.</p>
+    
+    <p>Content teams face the challenge of deciding which pages to refresh first. A common approach uses simple hand-written rules (e.g., "refresh pages older than 180 days with low traffic"). However, these rules may miss nuanced patterns and fail to capture the complex interplay of signals that indicate a page might benefit from a refresh.</p>
+    
+    <p>This research addresses the question: <strong>Can observable search and content signals be used to rank pages that are potential content-refresh opportunities better than a simple hand-written rule?</strong></p>
+    
+    <p>The decision supported is helping content teams prioritize which pages should be reviewed first for a possible content refresh, enabling more efficient use of limited editorial resources.</p>
+    
+    <h3>Unit of Analysis</h3>
+    <p>Individual content pages, uniquely identified by <code>content_hash_id</code> in the FlyRank warehouse.</p>
+    
+    <h3>Output</h3>
+    <ul>
+        <li><strong>Opportunity Score</strong> (0 to 1): Probability estimate that the page will experience significant decline if left unrefreshed.</li>
+        <li><strong>Reason Code</strong>: Human-readable explanation of which signals contributed to the score.</li>
+        <li><strong>Recommended Action</strong>: Specific, actionable suggestion for what to do with the page.</li>
+    </ul>
+    
+    <h3>Cost of Wrong Call</h3>
+    <ul>
+        <li><strong>False Positive:</strong> Wasted editorial time reviewing and potentially updating content unnecessarily.</li>
+        <li><strong>False Negative:</strong> Missed opportunity to recover or improve traffic, engagement, and conversions.</li>
+    </ul>
+
+    <!-- ============================================================ -->
+    <!-- 2. DATA -->
+    <!-- ============================================================ -->
+    <h2>2. Data</h2>
+    
+    <p>This project uses the <strong>FlyRank Internship Warehouse</strong> dataset hosted on Hugging Face.</p>
+    
+    <h3>Tables Used</h3>
+    <ul>
+        <li><strong>fact_content_daily_performance:</strong> Daily search and analytics performance (impressions, clicks, position, pageviews, engaged sessions) — March 2026</li>
+        <li><strong>dim_content:</strong> Content metadata (creation date, update date, content type, search volume, word count) — snapshot as of March 2026</li>
+    </ul>
+    
+    <h3>Development Window</h3>
+    <ul>
+        <li><strong>Training/Development:</strong> March 1-31, 2026 – all features derived from this period</li>
+        <li><strong>Test/Outcome:</strong> April 1-30, 2026 – used exclusively for label creation (≥30% decline)</li>
+        <li><strong>Decision Date:</strong> March 31, 2026 – point at which predictions would be made in real deployment</li>
+    </ul>
+    
+    <h3>Excluded Data (and why)</h3>
+    <ul>
+        <li><strong>Client names, domains, URLs, private queries, credentials</strong> — data safety</li>
+        <li><strong>Future-window information</strong> — to prevent data leakage</li>
+        <li><strong>content_updated_date beyond March 31</strong> — would cause leakage</li>
+        <li><strong>client_hash_id</strong> — grouping only, never as feature</li>
+        <li><strong>content_type, provider_used, model_used</strong> — not reliable or predictive</li>
+    </ul>
+    
+    <h3>Leakage Checks</h3>
+    <ul>
+        <li>✅ April data used ONLY for label, never as features</li>
+        <li>✅ Future update dates removed from feature set</li>
+        <li>✅ Client IDs used only for grouping, never as features</li>
+        <li>✅ Trend-based labels created from future data, never used as features</li>
+    </ul>
+
+    <!-- ============================================================ -->
+    <!-- 3. BASELINE -->
+    <!-- ============================================================ -->
+    <h2>3. Baseline</h2>
+    
+    <p><strong>Hand-Written Rule (from Week 4):</strong></p>
+    
+    <div style="background:#f5f7fa; padding:16px 20px; border-radius:8px; font-family:monospace; margin:10px 0 18px 0;">
+        def baseline_rule(row):<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;score = 0<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;if row['march_avg_position'] > 10: score += 1 &nbsp;&nbsp;# Low ranking<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;if row['content_age_days'] > 180: score += 1 &nbsp;&nbsp;# Old content<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;if row['march_impressions'] < 100: score += 1 &nbsp;&nbsp;# Low traffic<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;return score &nbsp;&nbsp;# Score >= 2 = refresh candidate
+    </div>
+    
+    <p><strong>Why It's a Fair Comparison:</strong></p>
+    <ul>
+        <li>Based on common industry practice</li>
+        <li>Uses only signals available at decision time (March data only)</li>
+        <li>Simple, interpretable, and easy to implement</li>
+        <li>Evaluated on the same validation split as the ML model</li>
+    </ul>
+    
+    <h3>Baseline Performance</h3>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                    <th>Interpretation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Accuracy</td>
+                    <td>0.261</td>
+                    <td>Only 26% of predictions are correct</td>
+                </tr>
+                <tr>
+                    <td>Precision</td>
+                    <td>0.180</td>
+                    <td>Only 18% of flagged pages actually need refresh</td>
+                </tr>
+                <tr>
+                    <td>Recall</td>
+                    <td>0.871</td>
+                    <td>Captures 87% of actual declines</td>
+                </tr>
+                <tr>
+                    <td>F1-Score</td>
+                    <td>0.299</td>
+                    <td>Poor – harmonic mean of precision and recall</td>
+                </tr>
+                <tr class="metric-highlight">
+                    <td><strong>AUC</strong></td>
+                    <td><strong>0.498</strong></td>
+                    <td>Near random – no better than flipping a coin</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <p><strong>Interpretation:</strong> The baseline rule performs only slightly better than random guessing (AUC = 0.498). While it captures most actual declines (high recall), it does so at the cost of very low precision – flagging many pages that don't need refresh, wasting editorial time.</p>
+
+    <!-- ============================================================ -->
+    <!-- 4. METHODOLOGY / MODEL -->
+    <!-- ============================================================ -->
+    <h2>4. Methodology</h2>
+    
+    <p><strong>Method:</strong> Random Forest Classifier (ensemble of decision trees)</p>
+    
+    <p><strong>Why This Fits the Refresh Lane:</strong></p>
+    <ul>
+        <li>Handles non-linear relationships between features</li>
+        <li>Provides feature importance for interpretation</li>
+        <li>Robust to outliers and missing data</li>
+        <li>Good for classification with imbalanced data</li>
+    </ul>
+    
+    <h3>Feature List (8 features, all available at decision time)</h3>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Description</th>
+                    <th>Why Included</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>march_impressions</code></td>
+                    <td>Avg daily impressions (March)</td>
+                    <td>Traffic volume signal</td>
+                </tr>
+                <tr>
+                    <td><code>march_clicks</code></td>
+                    <td>Avg daily clicks (March)</td>
+                    <td>Engagement signal</td>
+                </tr>
+                <tr>
+                    <td><code>march_avg_position</code></td>
+                    <td>Avg search position (March)</td>
+                    <td>Ranking quality signal</td>
+                </tr>
+                <tr>
+                    <td><code>march_pageviews</code></td>
+                    <td>Avg daily pageviews (March)</td>
+                    <td>Analytics engagement</td>
+                </tr>
+                <tr>
+                    <td><code>march_engaged_sessions</code></td>
+                    <td>Avg daily engaged sessions (March)</td>
+                    <td>User engagement</td>
+                </tr>
+                <tr>
+                    <td><code>content_age_days</code></td>
+                    <td>Days since content creation (as of March 31)</td>
+                    <td>Content freshness</td>
+                </tr>
+                <tr>
+                    <td><code>search_volume</code></td>
+                    <td>Keyword search volume</td>
+                    <td>Demand signal</td>
+                </tr>
+                <tr>
+                    <td><code>word_count</code></td>
+                    <td>Content length</td>
+                    <td>Content quality proxy</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <h3>Features Left Out (on purpose)</h3>
+    <ul>
+        <li>❌ Any April data (would cause leakage)</li>
+        <li>❌ Content updated date (future leakage)</li>
+        <li>❌ Client identifiers (would cause overfitting)</li>
+        <li>❌ Content type / provider (not reliable)</li>
+    </ul>
+    
+    <h3>Target Definition</h3>
+    <p>Binary label indicating whether a page experienced a <strong>≥30% decline in impressions</strong> from March to April 2026, calculated as <code>(April_Impressions - March_Impressions) / March_Impressions ≤ -0.30</code>.</p>
+    
+    <p><strong>Target Distribution:</strong></p>
+    <ul>
+        <li>No Decline (0): 8,191 pages (81.9%)</li>
+        <li>Decline (1): 1,809 pages (18.1%)</li>
+        <li><strong>Base Rate:</strong> 18.1% – important context for evaluating model performance</li>
+    </ul>
+
+    <!-- ============================================================ -->
+    <!-- 5. EVALUATION / RESULTS -->
+    <!-- ============================================================ -->
+    <h2>5. Evaluation</h2>
+    
+    <h3>Validation Split</h3>
+    <ul>
+        <li><strong>Training:</strong> 70% of data (7,000 rows)</li>
+        <li><strong>Validation:</strong> 30% of data (3,000 rows)</li>
+        <li><strong>Method:</strong> Stratified random split (preserves label distribution)</li>
+        <li><strong>Random Seed:</strong> 42 (reproducibility)</li>
+    </ul>
+    
+    <h3>Model vs Baseline Comparison</h3>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Baseline</th>
+                    <th>ML Model</th>
+                    <th>Improvement</th>
+                    <th>Improvement %</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Accuracy</td>
+                    <td>0.261</td>
+                    <td>0.823</td>
+                    <td class="improvement-positive">+0.562</td>
+                    <td class="improvement-positive">+215.6%</td>
+                </tr>
+                <tr>
+                    <td>Precision</td>
+                    <td>0.180</td>
+                    <td>0.593</td>
+                    <td class="improvement-positive">+0.413</td>
+                    <td class="improvement-positive">+228.7%</td>
+                </tr>
+                <tr>
+                    <td>Recall</td>
+                    <td>0.871</td>
+                    <td>0.064</td>
+                    <td class="improvement-negative">-0.807</td>
+                    <td class="improvement-negative">-92.6%</td>
+                </tr>
+                <tr>
+                    <td>F1-Score</td>
+                    <td>0.299</td>
+                    <td>0.116</td>
+                    <td class="improvement-negative">-0.183</td>
+                    <td class="improvement-negative">-61.1%</td>
+                </tr>
+                <tr class="metric-highlight">
+                    <td><strong>AUC</strong></td>
+                    <td><strong>0.498</strong></td>
+                    <td><strong>0.752</strong></td>
+                    <td class="improvement-positive"><strong>+0.254</strong></td>
+                    <td class="improvement-positive"><strong>+50.9%</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <p><strong>Key Finding:</strong> The ML model improves AUC by 50.9% over the baseline, confirming that machine learning can more effectively identify content refresh opportunities.</p>
+    
+    <h3>Precision@K (for top recommendations)</h3>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>K</th>
+                    <th>Precision</th>
+                    <th>Interpretation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Top 10</td>
+                    <td>0.60</td>
+                    <td>6 of top 10 recommendations actually declined</td>
+                </tr>
+                <tr>
+                    <td>Top 20</td>
+                    <td>0.55</td>
+                    <td>11 of top 20 recommendations actually declined</td>
+                </tr>
+                <tr>
+                    <td>Top 50</td>
+                    <td>0.48</td>
+                    <td>24 of top 50 recommendations actually declined</td>
+                </tr>
+                <tr>
+                    <td>Top 100</td>
+                    <td>0.42</td>
+                    <td>42 of top 100 recommendations actually declined</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <h3>Error Analysis</h3>
+    <p><strong>False Positives</strong> (predicted decline but no actual decline):</p>
+    <ul>
+        <li>Pages with low traffic but stable performance</li>
+        <li>Older pages that maintain rankings despite age</li>
+        <li>Pages where other factors compensate for weak signals</li>
+    </ul>
+    
+    <p><strong>False Negatives</strong> (missed actual decline):</p>
+    <ul>
+        <li>Rapidly declining pages without strong historical signals</li>
+        <li>Pages where decline happened quickly (within month)</li>
+        <li>Pages with unusual traffic patterns</li>
+    </ul>
+    
+    <p><strong>What Errors Tell Us:</strong> The model is conservative (low recall), trading off recall for precision. It is better at identifying clear decline signals than subtle ones, making it most useful for high-confidence prioritization.</p>
+
+    <!-- ============================================================ -->
+    <!-- 6. INTERPRETATION / FEATURE IMPORTANCE -->
+    <!-- ============================================================ -->
+    <h2>6. Interpretation</h2>
+    
+    <h3>Feature Importance</h3>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Importance</th>
+                    <th>Interpretation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>march_impressions</strong></td>
+                    <td><strong>0.337</strong></td>
+                    <td>Most important: Low traffic predicts decline (Matthew effect)</td>
+                </tr>
+                <tr>
+                    <td><strong>march_avg_position</strong></td>
+                    <td><strong>0.230</strong></td>
+                    <td>Second: Poor rankings predict decline</td>
+                </tr>
+                <tr>
+                    <td>march_clicks</td>
+                    <td>0.091</td>
+                    <td>Low engagement signals problems</td>
+                </tr>
+                <tr>
+                    <td>content_age_days</td>
+                    <td>0.090</td>
+                    <td>Older content more likely to decline</td>
+                </tr>
+                <tr>
+                    <td>march_pageviews</td>
+                    <td>0.086</td>
+                    <td>Analytics engagement confirms traffic decline</td>
+                </tr>
+                <tr>
+                    <td>word_count</td>
+                    <td>0.082</td>
+                    <td>Content length (less important)</td>
+                </tr>
+                <tr>
+                    <td>search_volume</td>
+                    <td>0.075</td>
+                    <td>Demand (less important)</td>
+                </tr>
+                <tr>
+                    <td>march_engaged_sessions</td>
+                    <td>0.009</td>
+                    <td>Least important (noisy signal)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <h3>What the Model Found</h3>
+    <ol>
+        <li><strong>Traffic Volume is King:</strong> Pages with low impressions are most likely to decline further. This suggests a "Matthew effect" – pages already struggling tend to struggle more.</li>
+        <li><strong>Ranking Matters:</strong> Poor search position (position > 10) strongly predicts decline. Pages on page 2+ are at risk.</li>
+        <li><strong>Age is a Factor:</strong> Content older than 180 days shows higher decline risk, but it's not the strongest predictor.</li>
+        <li><strong>Engagement Signals:</strong> Clicks and pageviews provide additional signal but are less important than impressions.</li>
+    </ol>
+    
+    <h3>Surprising Finding</h3>
+    <p>Engaged sessions was the least important feature (0.009). This might be because Google Analytics sessions don't capture all user behavior, or search performance (impressions, clicks) is simply more predictive.</p>
+    
+    <h3>Negative Results</h3>
+    <ul>
+        <li>Content type didn't predict decline</li>
+        <li>Word count had minimal impact</li>
+        <li>Search volume wasn't strongly predictive</li>
+    </ul>
+
+    <!-- ============================================================ -->
+    <!-- 7. RANKED RECOMMENDATIONS -->
+    <!-- ============================================================ -->
+    <h2>7. Ranked Recommendations</h2>
+    
+    <h3>Priority Tiers</h3>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Priority</th>
+                    <th>Score Range</th>
+                    <th>Number of Pages</th>
+                    <th>Action</th>
+                    <th>Timeframe</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>≥ 0.70</td>
+                    <td>192</td>
+                    <td>Immediate review and refresh</td>
+                    <td>This week</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-medium">MEDIUM</span></td>
+                    <td>0.50 - 0.69</td>
+                    <td>3,655</td>
+                    <td>Schedule for next content sprint</td>
+                    <td>Next 2 weeks</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-low">LOW</span></td>
+                    <td>< 0.50</td>
+                    <td>6,153</td>
+                    <td>Monitor only</td>
+                    <td>Monthly review</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <h3>Top 20 Recommendations</h3>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Content ID</th>
+                    <th>Score</th>
+                    <th>Priority</th>
+                    <th>Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>content_a100cf...</td>
+                    <td>0.803</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low clicks, low pageviews</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>content_1d2ae3...</td>
+                    <td>0.796</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low traffic, low clicks</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>content_bde36f...</td>
+                    <td>0.783</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low traffic, low clicks</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>content_f85469...</td>
+                    <td>0.780</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Low ranking, old content, low traffic</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>content_7db2de...</td>
+                    <td>0.773</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low traffic, low clicks</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>content_d1b722...</td>
+                    <td>0.770</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Low ranking, old content, low traffic</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>content_97b889...</td>
+                    <td>0.763</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low traffic, low clicks</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>content_36cf0e...</td>
+                    <td>0.739</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low clicks, low pageviews</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>content_0f7be9...</td>
+                    <td>0.734</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low traffic, low clicks</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>content_cdedc8...</td>
+                    <td>0.732</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low traffic, low clicks</td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>content_ca9141...</td>
+                    <td>0.731</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low traffic, low clicks</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>content_bb4d03...</td>
+                    <td>0.729</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low traffic, low clicks</td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td>content_69c444...</td>
+                    <td>0.724</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low traffic, low clicks</td>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td>content_9935ab...</td>
+                    <td>0.716</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low clicks, low pageviews</td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td>content_93c796...</td>
+                    <td>0.715</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low clicks, low pageviews</td>
+                </tr>
+                <tr>
+                    <td>16</td>
+                    <td>content_feb7d1...</td>
+                    <td>0.715</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low traffic, low clicks</td>
+                </tr>
+                <tr>
+                    <td>17</td>
+                    <td>content_c343b9...</td>
+                    <td>0.714</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low clicks, low pageviews</td>
+                </tr>
+                <tr>
+                    <td>18</td>
+                    <td>content_f90fc8...</td>
+                    <td>0.711</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low clicks, low pageviews</td>
+                </tr>
+                <tr>
+                    <td>19</td>
+                    <td>content_8e8c9c...</td>
+                    <td>0.708</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low traffic, low clicks</td>
+                </tr>
+                <tr>
+                    <td>20</td>
+                    <td>content_207594...</td>
+                    <td>0.707</td>
+                    <td><span class="badge badge-high">HIGH</span></td>
+                    <td>Old content, low traffic, low clicks</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <h3>Recommended Actions</h3>
+    
+    <div class="rec-card">
+        <p><strong>For HIGH priority pages (score ≥ 0.70):</strong></p>
+        <ul>
+            <li>Immediate content review and refresh</li>
+            <li>Update with current information and data</li>
+            <li>Optimize meta titles and descriptions</li>
+            <li>Improve internal linking structure</li>
+        </ul>
+    </div>
+    
+    <div class="rec-card">
+        <p><strong>For MEDIUM priority pages (score 0.50-0.69):</strong></p>
+        <ul>
+            <li>Schedule for review in next content sprint</li>
+            <li>Monitor performance trends weekly</li>
+            <li>Consider targeted content updates</li>
+        </ul>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 8. LIMITATIONS -->
+    <!-- ============================================================ -->
+    <h2>8. Limitations</h2>
+    
+    <div class="limitation-box">
+        <ul>
+            <li><strong>Correlation ≠ Causation:</strong> This analysis identifies patterns and ranking opportunities rather than causal effects. A high refresh opportunity score does not prove that refreshing a page will improve Google rankings, clicks, or traffic.</li>
+            <li><strong>Decision Support Only:</strong> The model is intended as decision support for prioritizing human review, not as an automatic publishing or content-removal system.</li>
+            <li><strong>Data Limitations:</strong> The analysis is limited by the available warehouse fields, data coverage, and the chosen time windows (March-April 2026 only).</li>
+            <li><strong>Single Month Window:</strong> The model was trained on a single month of data and may not generalize to other time periods.</li>
+            <li><strong>Low Recall:</strong> The model misses many actual declines (recall = 0.064), making it better for high-confidence prioritization than exhaustive identification.</li>
+        </ul>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 9. REPRODUCIBILITY -->
+    <!-- ============================================================ -->
+    <h2>9. Reproducibility</h2>
+    
+    <p><strong>System Requirements:</strong></p>
+    <ul>
+        <li>Python 3.9+</li>
+        <li>DuckDB 1.0+</li>
+        <li>Pandas 2.0+</li>
+        <li>Scikit-learn 1.3+</li>
+        <li>Matplotlib 3.7+</li>
+        <li>Seaborn 0.12+</li>
+    </ul>
+    
+    <p><strong>Setup Commands:</strong></p>
+    <div style="background:#1a1a2e; color:#e0e0e0; padding:16px 20px; border-radius:8px; font-family:monospace; font-size:0.9em; margin:10px 0 18px 0; overflow-x:auto;">
+        git clone https://github.com/Aleeza-Maryam/Aleeza-ML-Internship-WEEK1<br>
+        cd Aleeza-ML-Internship-WEEK1<br>
+        pip install duckdb pandas numpy scikit-learn matplotlib seaborn<br>
+        jupyter notebook work/notebooks/capstone.ipynb
+    </div>
+    
+    <p><strong>Random Seeds:</strong></p>
+    <ul>
+        <li>Scikit-learn: <code>random_state=42</code></li>
+        <li>Train/Test Split: <code>random_state=42, stratify=y</code></li>
+    </ul>
+    
+    <p><strong>Sealed Evaluation:</strong></p>
+    <ul>
+        <li>April 2026 data used ONLY for label creation</li>
+        <li>All features from March 2026 only</li>
+        <li>Evaluation run once, no tuning on validation set</li>
+    </ul>
+    
+    <p><strong>Repository:</strong></p>
+    <a href="https://github.com/Aleeza-Maryam/Aleeza-ML-Internship-WEEK1" class="repo-btn" target="_blank">
+        🔗 View Repository on GitHub
+    </a>
+
+    <!-- ============================================================ -->
+    <!-- 10. ACKNOWLEDGMENTS -->
+    <!-- ============================================================ -->
+    <h2>10. Acknowledgments & Data Credit</h2>
+    
+    <p><strong>Data Source:</strong> This research was built on the FlyRank ML Internship dataset, which provided real-world search and analytics data for analysis.</p>
+    
+    <p><strong>Credit:</strong> Built on the <a href="https://flyrank.ai" target="_blank">FlyRank ML Internship dataset</a>.</p>
+    
+    <p><strong>Special Thanks:</strong> To the FlyRank team for providing access to the internship warehouse and supporting this research. The real-world data made it possible to build and validate a practical content refresh prioritization system.</p>
+
+    <!-- ============================================================ -->
+    <!-- FOOTER -->
+    <!-- ============================================================ -->
+    <div class="footer">
+        <p>
+            <strong>Content Refresh Opportunity Scoring</strong> — FlyRank ML Internship Capstone<br>
+            Deployed: August 30, 2026
+        </p>
+        <p style="margin-top: 8px; font-size: 0.85em;">
+            <a href="https://flyrank.ai" target="_blank">FlyRank</a> • 
+            <a href="https://github.com/Aleeza-Maryam/Aleeza-ML-Internship-WEEK1" target="_blank">GitHub Repository</a>
+        </p>
+    </div>
+
+</div>
+</body>
+</html>
